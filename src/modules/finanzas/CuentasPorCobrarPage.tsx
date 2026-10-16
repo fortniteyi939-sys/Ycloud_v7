@@ -1,38 +1,14 @@
 import { useState } from 'react'
 import { useDatos } from '../../hooks/useDatos'
 import { estadoComprobante, nombreTercero, pagado, rucTercero } from '../../services/datos'
-import { registrarCobranza } from '../../services/operaciones'
-import { fechaCorta, hoyMenos, moneda, sumar } from '../../utils/format'
+import { fechaCorta, moneda, sumar } from '../../utils/format'
 import type { Comprobante } from '../../types'
 import PageHeader from '../../components/PageHeader'
 import PasoAPaso from '../../components/PasoAPaso'
 import DataTable from '../../components/DataTable'
 import PanelResumen from '../../components/PanelResumen'
 import Badge from '../../components/Badge'
-import Modal from '../../components/Modal'
-
-const MEDIOS = ['Efectivo', 'Transferencia bancaria', 'Depósito en cuenta', 'Yape / Plin', 'Cheque']
-
-function CobranzaModal({ comprobante, onClose }: { comprobante: Comprobante; onClose: () => void }) {
-  const { datos: d, ejecutar } = useDatos()
-  const deuda = comprobante.total - pagado(comprobante)
-  const [monto, setMonto] = useState(+deuda.toFixed(2))
-  const [medio, setMedio] = useState(MEDIOS[0])
-  const [operacion, setOperacion] = useState('')
-  const [fecha, setFecha] = useState(hoyMenos(0))
-  const guardar = async () => { if (await ejecutar(c => registrarCobranza(c, comprobante.id, monto, medio, operacion, fecha))) onClose() }
-  return (
-    <Modal titulo={'Registrar cobranza · ' + comprobante.id} onClose={onClose} pie={<button className="pri" onClick={() => void guardar()}>Registrar pago</button>}>
-      <p className="mut">{nombreTercero(d, comprobante.cliente)} · Saldo {moneda(deuda)}</p>
-      <div className="g2c">
-        <label>Importe<input type="number" step=".01" value={monto} onChange={e => setMonto(+e.target.value)} /></label>
-        <label>Medio de pago<select value={medio} onChange={e => setMedio(e.target.value)}>{MEDIOS.map(m => <option key={m}>{m}</option>)}</select></label>
-        <label>N.º de operación<input value={operacion} onChange={e => setOperacion(e.target.value)} placeholder="OP-000000" /></label>
-        <label>Fecha<input type="date" value={fecha} onChange={e => setFecha(e.target.value)} /></label>
-      </div>
-    </Modal>
-  )
-}
+import CobranzaModal from '../../components/CobranzaModal'
 
 export default function CuentasPorCobrarPage() {
   const { datos: d } = useDatos()

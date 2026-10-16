@@ -23,3 +23,37 @@ export const COMPROBANTES: { tipo: 'Factura' | 'Boleta'; etiqueta: string }[] = 
   { tipo: 'Factura', etiqueta: 'F001 · Factura electrónica' },
   { tipo: 'Boleta', etiqueta: 'B001 · Boleta electrónica' }
 ]
+
+// ---------- medios de pago para cobranzas ----------
+// Los nombres deben coincidir con el enum `medio_pago` de la base de datos (ver database/04_medios_pago.sql).
+// ⚠ DATOS DE EJEMPLO: reemplaza las cuentas, el número de Yape/Plin y la razón social por los reales de tu empresa.
+export const EMPRESA = { nombre: 'YCLOUD ERP S.A.C.', ruc: '20000000001' }
+
+export interface MedioPago {
+  medio: string
+  /** Texto corto para el botón */
+  etiqueta: string
+  /** Pide número de operación (coincide con la regla de la base de datos: todo menos Efectivo) */
+  requiereOperacion: boolean
+  placeholderOperacion: string
+  /** Texto de ayuda bajo el selector */
+  ayuda: string
+  /** Datos que ve el cliente para pagar con este medio */
+  datos: [string, string][]
+}
+
+const CUENTA_BCP: [string, string][] = [
+  ['Banco', 'BCP · Cuenta corriente en soles'],
+  ['N.º de cuenta', '193-0000000-0-00'],
+  ['CCI', '002-193-000000000000-00'],
+  ['Titular', EMPRESA.nombre]
+]
+
+export const MEDIOS_PAGO: MedioPago[] = [
+  { medio: 'Efectivo', etiqueta: 'Efectivo', requiereOperacion: false, placeholderOperacion: '', ayuda: 'Pago recibido en caja. No requiere número de operación.', datos: [] },
+  { medio: 'Transferencia bancaria', etiqueta: 'Transferencia bancaria', requiereOperacion: true, placeholderOperacion: 'N.º de operación del banco', ayuda: 'El cliente transfiere a la cuenta de la empresa y envía el número de operación.', datos: CUENTA_BCP },
+  { medio: 'Yape / Plin', etiqueta: 'Yape / Plin', requiereOperacion: true, placeholderOperacion: 'N.º de operación de Yape o Plin', ayuda: 'El cliente paga desde su celular al número de la empresa.', datos: [['Yape / Plin', '999 999 999'], ['Titular', EMPRESA.nombre]] },
+  { medio: 'Depósito en cuenta', etiqueta: 'Depósito en cuenta', requiereOperacion: true, placeholderOperacion: 'N.º de operación del voucher', ayuda: 'Depósito en ventanilla, agente o app. Registra el número del voucher.', datos: CUENTA_BCP },
+  { medio: 'Tarjeta', etiqueta: 'Tarjeta', requiereOperacion: true, placeholderOperacion: 'Código de autorización del POS', ayuda: 'Pago con tarjeta de crédito o débito en el POS.', datos: [] },
+  { medio: 'Cheque', etiqueta: 'Cheque', requiereOperacion: true, placeholderOperacion: 'N.º de cheque', ayuda: 'Cheque a nombre de la empresa.', datos: [['A nombre de', EMPRESA.nombre], ['RUC', EMPRESA.ruc]] }
+]

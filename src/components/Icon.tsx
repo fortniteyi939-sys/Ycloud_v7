@@ -16,7 +16,8 @@ const RUTAS: Record<string, string> = {
   check: 'M5 12l5 5L20 7',
   x: 'M6 6l12 12M18 6L6 18',
   send: 'M22 2L11 13M22 2l-7 20-4-9-9-4z',
-  eye: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 100 6 3 3 0 000-6z'
+  pdf: 'M6 3h9l4 4v14H6zM12 11v6M9 14l3 3 3-3',
+  eye:'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 100 6 3 3 0 000-6z'
 }
 
 export default function Icon({ nombre, tam = 18 }: { nombre: string; tam?: number }) {

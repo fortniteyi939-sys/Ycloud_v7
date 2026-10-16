@@ -10,10 +10,12 @@ import PanelResumen from '../../components/PanelResumen'
 import Badge from '../../components/Badge'
 import Icon from '../../components/Icon'
 import DetalleModal from '../../components/DetalleModal'
+import ComprobanteModal from '../../components/ComprobanteModal'
 
 export default function FacturacionPage() {
   const { datos: d } = useDatos()
   const [ver, setVer] = useState<Comprobante | null>(null)
+  const [pdf, setPdf] = useState<Comprobante | null>(null)
   const pend = d.ordenesVenta.filter(o => o.estado === 'Pendiente').length
   const filas = d.comprobantes.map(c => ({ ...c, estado: estadoComprobante(c), almacen: d.ordenesVenta.find(o => o.id === c.ordenVenta)?.almacen ?? '' }))
   const lineasDe = (c: Comprobante) => d.ordenesVenta.find(o => o.id === c.ordenVenta)?.lineas ?? []
@@ -40,7 +42,7 @@ export default function FacturacionPage() {
             { titulo: 'Tipo', celda: x => x.tipo },
             { titulo: 'Importe', celda: x => moneda(x.total), orden: x => x.total },
             { titulo: 'Estado', celda: x => <Badge estado={x.estado} />, orden: x => x.estado },
-            { titulo: '', celda: x => <button className="ib" title="Ver detalle" onClick={() => setVer(x)}><Icon nombre="eye" /></button> }
+            { titulo: '', celda: x => <><button className="ib" title="Ver detalle" onClick={() => setVer(x)}><Icon nombre="eye" /></button> <button className="ib" title="Comprobante PDF y medios de pago" onClick={() => setPdf(x)}><Icon nombre="pdf" /></button></> }
           ]}
         />
         <PanelResumen
@@ -49,6 +51,7 @@ export default function FacturacionPage() {
         />
       </div>
       {ver && <DetalleModal titulo={ver.id} subtitulo={`${nombreTercero(d, ver.cliente)} · ${fechaCorta(ver.fecha)} · Ref. ${ver.ordenVenta}`} lineas={lineasDe(ver)} onClose={() => setVer(null)} />}
+      {pdf && <ComprobanteModal comprobante={pdf} onClose={() => setPdf(null)} />}
     </>
   )
 }

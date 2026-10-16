@@ -62,3 +62,8 @@ Inicio · Compras (Orden de compra, Ingreso al Kardex) · Ventas (Cotización, O
 ## Base de datos
 Los scripts están en `database/`: `01_esquema_erp.sql` (esquema completo, ejecutar una vez en un proyecto limpio) y `03_datos_iphone_alejandro.sql` (carga inicial opcional de iPhones y proveedores; edita los datos antes de ejecutar).
 **Nunca subas el archivo `.env`** (ya está en `.gitignore`); usa `.env.example` como plantilla.
+
+## Medios de pago y constancia PDF
+- En **Finanzas → Estado de cuenta → Cobrar** eliges el medio (Efectivo, Transferencia bancaria, Yape / Plin, Depósito, Tarjeta, Cheque), ves los datos para pagar y una constancia en PDF que se actualiza en vivo y se puede descargar.
+- Los datos de cuenta, Yape y razón social están en `src/services/datos.ts` (`EMPRESA`, `MEDIOS_PAGO`): reemplázalos por los reales.
+- Para habilitar **Tarjeta** ejecuta `database/04_medios_pago.sql` en Supabase.
