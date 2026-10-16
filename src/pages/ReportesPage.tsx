@@ -37,11 +37,11 @@ export default function ReportesPage() {
       </div>
       {abierto && datos && (
         <Modal titulo={abierto.titulo} onClose={() => setAbierto(null)}>
-          <div className="sc"><table>
+          <div className="sc"><table className="rt">
             <thead><tr>{datos.encabezados.map(h => <th key={h}>{h}</th>)}</tr></thead>
             <tbody>
-              {datos.filas.map((f, i) => <tr key={i}>{f.map((c, j) => <td key={j}>{c}</td>)}</tr>)}
-              {!datos.filas.length && <tr><td colSpan={datos.encabezados.length} className="mut">Sin resultados</td></tr>}
+              {datos.filas.map((f, i) => <tr key={i}>{f.map((c, j) => <td key={j} data-l={datos.encabezados[j]}>{c}</td>)}</tr>)}
+              {!datos.filas.length && <tr><td colSpan={datos.encabezados.length} className="mut vacio">Sin resultados</td></tr>}
             </tbody>
           </table></div>
         </Modal>

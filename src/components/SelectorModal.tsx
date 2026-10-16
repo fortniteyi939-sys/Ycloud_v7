@@ -47,11 +47,11 @@ export default function SelectorModal<T>(p: Props<T>) {
             )}
           </div>
           <div className="sc">
-            <table>
+            <table className="rt">
               <thead><tr>{p.columnas.map((c, i) => <th key={i}>{c.titulo}</th>)}</tr></thead>
               <tbody>
-                {visibles.map((x, i) => <tr key={i} className="pr" onClick={() => p.onElegir(x)}>{p.columnas.map((c, j) => <td key={j}>{c.celda(x)}</td>)}</tr>)}
-                {!visibles.length && <tr><td colSpan={p.columnas.length} className="mut">Sin resultados</td></tr>}
+                {visibles.map((x, i) => <tr key={i} className="pr" onClick={() => p.onElegir(x)}>{p.columnas.map((c, j) => <td key={j} data-l={c.titulo}>{c.celda(x)}</td>)}</tr>)}
+                {!visibles.length && <tr><td colSpan={p.columnas.length} className="mut vacio">Sin resultados</td></tr>}
               </tbody>
             </table>
           </div>

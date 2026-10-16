@@ -108,10 +108,10 @@ export default function DocumentoModal({ tipo, productoInicial, onClose }: Props
             {lineas.map((l, i) => (
               <div className="ln" key={l.producto}>
                 <span className="lp"><b>{nombreProducto(d, l.producto)}</b><small className="mut">{l.producto}</small></span>
-                <input type="number" min={1} value={l.cantidad} onChange={e => cambiar(i, 'cantidad', +e.target.value)} />
-                <input type="number" step=".01" value={l.precio} onChange={e => cambiar(i, 'precio', +e.target.value)} />
-                <span className="ls">{moneda(l.cantidad * l.precio)}</span>
-                <button onClick={() => setLineas(ls => ls.filter((_, j) => j !== i))}>✕</button>
+                <label className="lc"><small className="lcl">Cant.</small><input type="number" inputMode="numeric" min={1} value={l.cantidad} onChange={e => cambiar(i, 'cantidad', +e.target.value)} /></label>
+                <label className="lc"><small className="lcl">Precio unit.</small><input type="number" inputMode="decimal" step=".01" value={l.precio} onChange={e => cambiar(i, 'precio', +e.target.value)} /></label>
+                <span className="ls"><small className="lcl mut">Subtotal</small>{moneda(l.cantidad * l.precio)}</span>
+                <button onClick={() => setLineas(ls => ls.filter((_, j) => j !== i))} aria-label="Quitar producto">✕</button>
               </div>
             ))}
             <button className="add" onClick={() => setSelector('producto')}>+ Agregar producto</button>

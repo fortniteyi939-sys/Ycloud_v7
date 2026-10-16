@@ -116,3 +116,149 @@ a.nv{text-decoration:none}.auth select,.add{width:100%}
 .ft.pmf{padding:12px 20px;border-top:1px solid var(--line);flex-wrap:wrap}
 a.bt{display:inline-block;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;text-decoration:none;cursor:pointer}a.bt.pri{background:var(--ac);border-color:var(--ac);color:#fff}
 @media(max-width:800px){.pm{grid-template-columns:1fr}.pm .pv{border-left:0;border-top:1px solid var(--line)}.pv iframe{min-height:360px}}
+
+/* =====================================================================
+   ADAPTACIÓN A CELULAR / TABLET
+   ===================================================================== */
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:hidden}
+img,svg,iframe{max-width:100%}
+.mb{align-items:center}
+aside{transition:width .15s,left .2s}
+.bk{display:none}
+.bl2{display:inline}
+.tb{gap:8px}.tb>span:last-child{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.md label>.lcl{display:none}.ln label.lc{margin:0}.ln .ls .lcl{display:none}
+td[data-l=""]::before{content:none}
+
+/* ---------- Tablet ---------- */
+@media(max-width:1000px){
+  .main{padding:18px 20px}
+}
+
+/* ---------- Celular (≤ 800 px) ---------- */
+@media(max-width:800px){
+  /* menú lateral: cajón deslizable con fondo oscuro */
+  aside,aside.mini{width:min(280px,84vw);left:-300px;top:0;bottom:0;max-height:none;height:100%;padding-top:calc(18px + env(safe-area-inset-top,0px));padding-bottom:calc(18px + env(safe-area-inset-bottom,0px));box-shadow:none;overflow-y:auto;overscroll-behavior:contain}
+  aside.open{left:0;box-shadow:0 0 40px #000a}
+  aside>.nv:last-child{display:none}            /* "Contraer" no aplica en celular */
+  .nv{padding:12px 12px;font-size:15px}
+  .bk.on{display:block;position:fixed;inset:0;background:#0008;z-index:14}
+  .app{display:block}
+
+  /* el :root ya reserva las zonas seguras; evitamos duplicarlas dentro del contenido */
+  .main{padding:0 14px 20px}
+  .tb{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);margin:0 -14px 8px;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .tb .tt0{display:none}
+  .tb .mb{margin-right:auto}
+
+  /* cabeceras de página */
+  h1{font-size:21px}
+  .hd{align-items:stretch}
+  .hd>div:last-child{display:flex;flex-wrap:wrap;gap:8px}
+  .hd>div:last-child>*{flex:1 1 auto}
+
+  /* controles cómodos al tacto (16 px evita el zoom automático de iOS) */
+  button,input,select,textarea,.md.big textarea{font-size:16px}
+  button,a.bt,select,input:not([type=checkbox]):not([type=radio]){min-height:42px}
+  .ib{min-height:36px}
+  a.bt{display:inline-flex;align-items:center;justify-content:center}
+
+  /* indicadores */
+  .k{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kg{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .kc{padding:12px}.kc b{font-size:20px}
+  .g2d,.d2,.lay{grid-template-columns:1fr}
+  .lgd button{min-height:34px}
+  .seg button{min-height:38px;padding:6px 10px}
+
+  /* barras de filtros de las tablas */
+  .tl{padding:10px}
+  .tl input,.tl select,.tl button{flex:1 1 100%;min-width:0;width:100%}
+  .tl input[type=date]{flex:1 1 100%}
+
+  /* paginación */
+  .pg{flex-wrap:wrap;gap:8px}
+  .pg select{min-height:36px}
+
+  /* TABLAS → TARJETAS */
+  .sc{overflow-x:visible}
+  table.rt,table.rt tbody{display:block;width:100%}
+  table.rt thead{display:none}
+  table.rt tr{display:block;padding:10px 12px;border-bottom:1px solid var(--line)}
+  table.rt tr:last-child{border-bottom:0}
+  table.rt td{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:5px 0;border:0;text-align:right;white-space:normal}
+  table.rt td::before{content:attr(data-l);color:var(--mut);font-size:11px;letter-spacing:.06em;text-transform:uppercase;text-align:left;flex:none;max-width:42%}
+  table.rt td[data-l=""]{justify-content:flex-end;padding-top:8px}
+  table.rt td[data-l=""]::before{content:none}
+  table.rt td:last-child{white-space:normal}
+  table.rt td.vacio{justify-content:center;text-align:center}table.rt td.vacio::before{content:none}
+  table.rt td .acts{flex-wrap:wrap}
+  table.rt td select{max-width:60%}
+  tr.pr:active td{background:#8b5cf61a}
+
+  /* VENTANAS (modales) A PANTALLA COMPLETA */
+  .ov{padding:0;align-items:stretch}
+  .md,.md.big,#mb2{width:100%!important;max-height:none;height:100%;border-radius:0;display:flex;flex-direction:column;overflow:auto;padding-bottom:env(safe-area-inset-bottom,0px)}
+  .md:not(.big){padding:16px 14px calc(16px + env(safe-area-inset-bottom,0px))}
+  .md.big{overflow:hidden}
+  .mh{padding:12px 14px;gap:10px;position:sticky;top:0;background:var(--card);z-index:2;padding-top:calc(12px + env(safe-area-inset-top,0px))}
+  .mh h3{font-size:16px}
+  .dg,.pm{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .dl,.dr{padding:14px}
+  .dr{position:static;border-top:1px solid var(--line)}
+  .pm>div{padding:14px}
+  .pkb{padding:12px 14px;flex:1;min-height:0;overflow-y:auto}
+  .ft{flex-wrap:wrap}
+  .ft>*{flex:1 1 auto}
+  .dr .ft{position:sticky;bottom:0;background:var(--card);margin:0 -14px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+  .ft.pmf{padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));position:sticky;bottom:0;background:var(--card)}
+
+  /* líneas de producto: nombre arriba; cantidad, precio y subtotal debajo */
+  .ln,.ln.hd+.ln{grid-template-columns:1fr 1fr auto;gap:8px;padding:10px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;align-items:end}
+  .ln.hd{display:none}
+  .ln .lp{grid-column:1/-1}
+  .md label>.lcl{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:0 0 3px}
+  .ln label.lc input{margin-top:0}
+  .ln .ls{grid-column:1/-2;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+  .ln .ls .lcl{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+  .ln>button{grid-column:3;grid-row:3}
+
+  /* vista previa PDF */
+  .pv iframe{min-height:300px}
+  .mp button{flex:1 1 auto}
+  .mpd div{flex-wrap:wrap}
+
+  /* ficha de cliente / proveedor */
+  .g2k{grid-template-columns:1fr}
+
+  /* pasos y avisos */
+  .flow{grid-template-columns:1fr 1fr}
+  .stps button{min-width:calc(50% - 8px)}
+  .nxt,.tip{padding:10px 12px}
+  .tabs{flex-wrap:wrap}
+
+  /* aviso emergente */
+  #ts{left:14px;right:14px;transform:none;bottom:calc(16px + env(safe-area-inset-bottom,0px));text-align:center}
+
+  /* login */
+  .acard{padding:20px}
+}
+
+/* ---------- Celulares pequeños (≤ 560 px) ---------- */
+@media(max-width:560px){
+  .bl2,.tb .un{display:none}                    /* solo íconos en la barra superior */
+  .tb button{padding:6px 11px}
+  .k,.kg{grid-template-columns:1fr 1fr}
+  .kc small{font-size:11.5px}
+  .flow{grid-template-columns:1fr}
+  .stps button{min-width:100%}
+  .lh{padding:12px 12px 0;gap:8px;flex-wrap:wrap}
+  .al,.ai{flex-wrap:wrap}
+  .ai button{margin-left:44px}
+}
+
+/* ---------- Celulares apaisados: ventanas con menos altura ---------- */
+@media(max-width:800px) and (orientation:landscape){
+  .pv iframe{min-height:220px}
+}

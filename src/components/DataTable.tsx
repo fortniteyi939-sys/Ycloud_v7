@@ -67,7 +67,7 @@ export default function DataTable<T>(p: Props<T>) {
         {p.csv && <button onClick={() => exportarCsv(p.csv!.archivo, cols.map(c => c.titulo), filas.map(p.csv!.fila))}>⭳ Exportar CSV</button>}
       </div>
       <div className="sc">
-        <table>
+        <table className="rt">
           <thead>
             <tr>
               {p.columnas.map((c, i) => c.orden
@@ -76,8 +76,8 @@ export default function DataTable<T>(p: Props<T>) {
             </tr>
           </thead>
           <tbody>
-            {visibles.map((x, i) => <tr key={i}>{p.columnas.map((c, j) => <td key={j}>{c.celda(x)}</td>)}</tr>)}
-            {!visibles.length && <tr><td colSpan={p.columnas.length} className="mut">Sin resultados</td></tr>}
+            {visibles.map((x, i) => <tr key={i}>{p.columnas.map((c, j) => <td key={j} data-l={c.titulo}>{c.celda(x)}</td>)}</tr>)}
+            {!visibles.length && <tr><td colSpan={p.columnas.length} className="mut vacio">Sin resultados</td></tr>}
           </tbody>
         </table>
       </div>

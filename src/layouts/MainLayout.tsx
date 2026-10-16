@@ -49,16 +49,17 @@ export default function MainLayout() {
         <div className="gl"></div>
         <button className="nv" onClick={() => setMini(!mini)} title="Contraer menú"><Icon nombre="mi" /><span className="tx">Contraer</span></button>
       </aside>
+      <div className={'bk' + (abierto ? ' on' : '')} onClick={() => setAbierto(false)} />
       <div className="main">
-        <div className="top">
-          <button className="mb" onClick={() => setAbierto(!abierto)}>☰ Menú</button>
-          <span className="mut">YCLOUD ERP</span>
+        <div className="top tb">
+          <button className="mb" onClick={() => setAbierto(!abierto)} aria-label="Abrir menú">☰ Menú</button>
+          <span className="mut tt0">YCLOUD ERP</span>
           <span>
-            <span className="mut">{perfil?.nombres}{perfil?.rol ? ' · ' + perfil.rol.nombre : ''}</span>{' '}
-            <button onClick={() => setAyuda(true)}>? Cómo usar</button>{' '}
-            <button onClick={alternarTema}>◐ Tema</button>{' '}
-            <button onClick={() => void recargar()} title="Volver a leer los datos de Supabase">↻ Actualizar</button>{' '}
-            <button onClick={() => void cerrarSesion()}>⎋ Salir</button>
+            <span className="mut un">{perfil?.nombres}{perfil?.rol ? ' · ' + perfil.rol.nombre : ''}</span>{' '}
+            <button onClick={() => setAyuda(true)} title="Cómo usar" aria-label="Cómo usar">?<span className="bl2"> Cómo usar</span></button>{' '}
+            <button onClick={alternarTema} title="Cambiar tema" aria-label="Cambiar tema">◐<span className="bl2"> Tema</span></button>{' '}
+            <button onClick={() => void recargar()} title="Volver a leer los datos de Supabase" aria-label="Actualizar">↻<span className="bl2"> Actualizar</span></button>{' '}
+            <button onClick={() => void cerrarSesion()} title="Salir" aria-label="Salir">⎋<span className="bl2"> Salir</span></button>
           </span>
         </div>
         <Outlet />

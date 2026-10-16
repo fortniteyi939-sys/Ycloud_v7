@@ -41,22 +41,22 @@ export default function UsuariosPage() {
     <>
       <PageHeader titulo="Usuarios" descripcion="Asigna el rol de cada persona y activa o desactiva su acceso." />
       <div className="c"><div className="sc">
-        <table>
+        <table className="rt">
           <thead><tr><th>Nombres</th><th>Correo</th><th>Rol</th><th>Estado</th><th></th></tr></thead>
           <tbody>
             {usuarios.map(u => {
               const yo = u.id === perfil?.id
               return (
                 <tr key={u.id}>
-                  <td>{u.nombres}{yo && <> <span className="b">tú</span></>}</td>
-                  <td>{u.email}</td>
-                  <td>
+                  <td data-l="Nombres">{u.nombres}{yo && <> <span className="b">tú</span></>}</td>
+                  <td data-l="Correo">{u.email}</td>
+                  <td data-l="Rol">
                     <select value={u.rol_id} disabled={yo} onChange={e => void actualizar(u.id, { rol_id: +e.target.value })}>
                       {roles.map(r => <option key={r.id} value={r.id}>{r.nombre}</option>)}
                     </select>
                   </td>
-                  <td><Badge estado={u.activo ? 'Activo' : 'Inactivo'} /></td>
-                  <td>{!yo && <button onClick={() => void actualizar(u.id, { activo: !u.activo })}>{u.activo ? 'Desactivar' : 'Activar'}</button>}</td>
+                  <td data-l="Estado"><Badge estado={u.activo ? 'Activo' : 'Inactivo'} /></td>
+                  <td data-l="">{!yo && <button onClick={() => void actualizar(u.id, { activo: !u.activo })}>{u.activo ? 'Desactivar' : 'Activar'}</button>}</td>
                 </tr>
               )
             })}
